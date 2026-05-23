@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cristão – Vício em Telas do Seu Filho</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #f0c040;
+    --gold2: #e8a020;
+    --dark: #0a0a12;
+    --deep: #10101e;
+    --mid: #1a1a2e;
+    --cross: #c8860a;
+    --white: #f8f5ee;
+    --accent: #ff6b35;
+    --green: #27ae60;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── LANG SCREEN ── */
+  #lang-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(ellipse at center, #1a1430 0%, #05050e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem;
+  }
+  #lang-screen .ls-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    color: var(--gold);
+    text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 0 40px rgba(240,192,64,.5);
+  }
+  #lang-screen p {
+    font-size: 1rem; color: #aaa; letter-spacing: .15em; text-transform: uppercase;
+  }
+  .lang-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .lang-btn {
+    background: linear-gradient(135deg, #1e1830, #12102a);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    padding: .85rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: .1em;
+    transition: all .3s;
+  }
+  .lang-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    box-shadow: 0 0 30px rgba(240,192,64,.5);
+    transform: translateY(-2px);
+  }
+
+  /* ── MAIN PAGE ── */
+  #main-page { display: none; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 60% 30%, #2a1a0e 0%, #0a0a12 70%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0c040' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 3rem 1.5rem;
+  }
+  .hero-bible {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(70vw, 520px);
+    opacity: 0.06;
+    pointer-events: none;
+    animation: biblePulse 6s ease-in-out infinite;
+  }
+  @keyframes biblePulse {
+    0%,100% { opacity: .06; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: .09; transform: translate(-50%,-50%) scale(1.03); }
+  }
+  .hero-inner {
+    max-width: 900px; width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 2rem; text-align: center; position: relative; z-index: 1;
+  }
+  .ebook-img-wrap {
+    position: relative; display: inline-block;
+  }
+  .ebook-img-wrap img {
+    width: clamp(220px, 55vw, 340px);
+    border-radius: 12px;
+    box-shadow: 0 0 60px rgba(240,192,64,.35), 0 20px 60px rgba(0,0,0,.7);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .badge {
+    position: absolute; top: -14px; right: -14px;
+    background: var(--accent);
+    color: #fff; font-weight: 900; font-size: .7rem;
+    padding: .4rem .7rem; border-radius: 50px;
+    letter-spacing: .05em; text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(255,107,53,.5);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+  .hero-label {
+    font-size: .75rem; letter-spacing: .3em; color: var(--gold2);
+    text-transform: uppercase; opacity: .8;
+  }
+  .hero h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 5vw, 3.2rem);
+    line-height: 1.2;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(240,192,64,.4);
+  }
+  .hero h1 span { color: var(--white); }
+  .hero .sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(248,245,238,.7);
+    font-style: italic;
+    max-width: 580px;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 420px; }
+  .btn-primary {
+    display: block; width: 100%;
+    background: linear-gradient(135deg, #f0c040, #e8820a);
+    color: #0a0a12;
+    font-family: 'Lato', sans-serif; font-weight: 900;
+    font-size: 1.05rem; letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 1.1rem 1.5rem;
+    border-radius: 6px; border: none;
+    text-decoration: none; text-align: center;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(240,192,64,.4);
+    transition: all .3s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: ''; position: absolute; inset:0;
+    background: linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+    transform: translateX(-100%); transition: .5s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(240,192,64,.55); }
+  .btn-primary:hover::after { transform: translateX(100%); }
+
+  .btn-wpp {
+    display: flex; align-items: center; justify-content: center; gap: .6rem;
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid #25d366;
+    color: #25d366;
+    font-family: 'Lato', sans-serif; font-weight: 700;
+    font-size: 1rem; letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: .9rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none; text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+  }
+  .btn-wpp:hover { background: #25d366; color: #fff; transform: translateY(-2px); }
+  .btn-wpp svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 860px; margin: 0 auto; }
+  .sec-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 3rem;
+    line-height: 1.3;
+  }
+  .divider {
+    width: 80px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.2rem auto 0;
+  }
+
+  /* ── PAIN ── */
+  .pain { background: var(--deep); }
+  .pain-grid { display: grid; gap: 1.2rem; }
+  .pain-item {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(240,192,64,.12);
+    border-left: 3px solid var(--gold2);
+    padding: 1.2rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1.05rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(248,245,238,.85);
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .pain-item span.ico { font-size: 1.5rem; flex-shrink:0; }
+
+  /* ── SOLUTION ── */
+  .solution { background: var(--mid); }
+  .sol-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: rgba(248,245,238,.85);
+    line-height: 1.8;
+    text-align: center;
+    max-width: 680px; margin: 0 auto;
+  }
+  .sol-text strong { color: var(--gold); font-style: italic; }
+
+  /* ── BENEFITS ── */
+  .benefits { background: var(--deep); }
+  .ben-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; }
+  .ben-card {
+    background: linear-gradient(135deg, #16122a, #0f0d1e);
+    border: 1px solid rgba(240,192,64,.2);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .ben-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(240,192,64,.15); }
+  .ben-card .icon { font-size: 2.2rem; margin-bottom: .8rem; }
+  .ben-card h3 { font-family: 'Cinzel Decorative', serif; font-size: .85rem; color: var(--gold); margin-bottom: .5rem; }
+  .ben-card p { font-size: .9rem; color: rgba(248,245,238,.65); line-height: 1.6; }
+
+  /* ── AUTHORITY ── */
+  .authority { background: var(--mid); text-align: center; }
+  .auth-box {
+    background: rgba(240,192,64,.06);
+    border: 1px solid rgba(240,192,64,.2);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    max-width: 560px; margin: 0 auto;
+  }
+  .auth-avatar { font-size: 4rem; margin-bottom: 1rem; }
+  .auth-name { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold); }
+  .auth-desc { font-size: .95rem; color: rgba(248,245,238,.7); margin-top: .5rem; line-height: 1.7; }
+  .auth-stat { margin-top: 1.2rem; font-weight: 700; font-size: 1.1rem; color: var(--gold2); }
+
+  /* ── GUARANTEE ── */
+  .guarantee { background: var(--deep); }
+  .guar-box {
+    display: flex; align-items: center; gap: 2rem;
+    background: rgba(39,174,96,.07);
+    border: 1.5px solid rgba(39,174,96,.3);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    max-width: 620px; margin: 0 auto;
+    flex-wrap: wrap; justify-content: center; text-align: center;
+  }
+  .guar-icon { font-size: 4rem; flex-shrink:0; }
+  .guar-text h3 { font-family: 'Cinzel Decorative', serif; color: var(--green); font-size: 1rem; margin-bottom: .5rem; }
+  .guar-text p { color: rgba(248,245,238,.75); line-height: 1.7; font-size: .95rem; }
+
+  /* ── ALERT ── */
+  .alert-box {
+    background: rgba(255,107,53,.08);
+    border: 1px solid rgba(255,107,53,.35);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    display: flex; align-items: flex-start; gap: .8rem;
+    max-width: 620px; margin: 3rem auto 0;
+    font-size: .93rem; line-height: 1.7;
+    color: rgba(248,245,238,.8);
+  }
+  .alert-box .aw { color: var(--accent); font-size: 1.2rem; flex-shrink:0; }
+
+  /* ── CTA FINAL ── */
+  .cta-final { background: radial-gradient(ellipse at center, #1e1020 0%, #0a0a12 100%); text-align: center; }
+  .cta-final .cta-wrap { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+  .cta-final .hero-btns { width: 100%; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #05050e;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: .8rem;
+    color: rgba(248,245,238,.3);
+    border-top: 1px solid rgba(240,192,64,.08);
+  }
+
+  /* ── FLOATING WPP ── */
+  .float-wpp {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 888;
+    background: #25d366;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 25px rgba(37,211,102,.5);
+    text-decoration: none;
+    transition: transform .3s, box-shadow .3s;
+    animation: wppBounce 2.5s ease-in-out infinite;
+  }
+  .float-wpp:hover { transform: scale(1.1); box-shadow: 0 10px 35px rgba(37,211,102,.7); }
+  .float-wpp svg { width:30px; height:30px; fill:#fff; }
+  @keyframes wppBounce {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:500px) {
+    .pain-item { font-size:.95rem; }
+    .ben-grid { grid-template-columns: 1fr; }
+    .guar-box { padding:1.8rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ LANG SCREEN ════════════════ -->
+<div id="lang-screen">
+  <img src="bannertela.png" alt="Logo" style="width:clamp(260px,80vw,620px);border-radius:12px;box-shadow:0 0 40px rgba(240,192,64,.35);"/>
+  <p id="ls-subtitle">Escolha seu idioma / Choose your language / Choisissez votre langue</p>
+  <div class="lang-btns">
+    <button class="lang-btn" onclick="setLang('pt')">🇧🇷 Português</button>
+    <button class="lang-btn" onclick="setLang('en')">🇺🇸 English</button>
+    <button class="lang-btn" onclick="setLang('fr')">🇫🇷 Français</button>
+  </div>
+</div>
+
+<!-- ════════════════ MAIN PAGE ════════════════ -->
+<div id="main-page">
+
+  <!-- FLOATING WhatsApp -->
+  <a class="float-wpp" href="https://wa.me/5547996175406" target="_blank" rel="noopener" title="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <!-- Background Bible SVG -->
+    <svg class="hero-bible" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Book body -->
+      <rect x="40" y="30" width="300" height="420" rx="18" fill="#f0c040"/>
+      <!-- Spine -->
+      <rect x="40" y="30" width="48" height="420" rx="10" fill="#c8860a"/>
+      <!-- Pages edge right -->
+      <rect x="340" y="38" width="12" height="404" rx="4" fill="#e8e0cc"/>
+      <!-- Cover border outer -->
+      <rect x="90" y="55" width="238" height="370" rx="8" stroke="#c8860a" stroke-width="4" fill="none"/>
+      <!-- Cover border inner -->
+      <rect x="102" y="67" width="214" height="346" rx="5" stroke="#c8860a" stroke-width="2" fill="none"/>
+      <!-- Open pages decoration (no cross) -->
+      <path d="M150 100 Q205 130 260 100 Q205 170 150 100Z" fill="#c8860a" opacity=".5"/>
+      <line x1="205" y1="103" x2="205" y2="168" stroke="#c8860a" stroke-width="2" opacity=".4"/>
+      <!-- Title lines -->
+      <rect x="122" y="250" width="156" height="10" rx="5" fill="#c8860a" opacity=".7"/>
+      <rect x="140" y="272" width="120" height="8" rx="4" fill="#c8860a" opacity=".5"/>
+      <rect x="154" y="291" width="92" height="7" rx="3" fill="#c8860a" opacity=".4"/>
+      <!-- Bottom ornament -->
+      <ellipse cx="205" cy="370" rx="50" ry="8" fill="#c8860a" opacity=".4"/>
+      <!-- Ribbon bookmark -->
+      <rect x="220" y="30" width="10" height="200" rx="3" fill="#e8820a" opacity=".8"/>
+      <polygon points="215,230 230,255 245,230" fill="#e8820a" opacity=".8"/>
+      <!-- Spine lines decoration -->
+      <rect x="50" y="100" width="28" height="4" rx="2" fill="#f0c040" opacity=".5"/>
+      <rect x="50" y="115" width="28" height="2" rx="1" fill="#f0c040" opacity=".3"/>
+      <rect x="50" y="380" width="28" height="4" rx="2" fill="#f0c040" opacity=".5"/>
+      <rect x="50" y="395" width="28" height="2" rx="1" fill="#f0c040" opacity=".3"/>
+    </svg>
+    <div class="hero-inner">
+      <div class="ebook-img-wrap">
+        <img src="livrotela.png" alt="Ebook Cristão – Vício em Telas"/>
+        <div class="badge" id="badge-text">NOVO</div>
+      </div>
+      <div class="hero-label" id="hero-label">Guia Bíblico e Prático</div>
+      <h1 id="hero-h1"><span id="h1-pre">COMO RESOLVER</span><br/>O VÍCIO EM TELAS<br/><span id="h1-suf">DO SEU FILHO</span></h1>
+      <p class="sub" id="hero-sub">Um guia bíblico e prático para restaurar o equilíbrio do seu filho na era digital.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" id="btn-buy" href="https://pay.hotmart.com/H104275249C?bid=1779497999944" target="_blank" rel="noopener">
+          📖 QUERO ACESSAR O EBOOK AGORA
+        </a>
+        <a class="btn-wpp" id="btn-wpp-hero" href="https://wa.me/5547996175406" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span id="btn-wpp-text">FALAR NO WHATSAPP</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PAIN ══ -->
+  <section class="pain">
+    <div class="container">
+      <h2 class="sec-title" id="pain-title">Você reconhece essa situação?<div class="divider"></div></h2>
+      <div class="pain-grid" id="pain-grid">
+        <div class="pain-item"><span class="ico">📱</span><span>Seu filho não larga o celular — nem na hora das refeições.</span></div>
+        <div class="pain-item"><span class="ico">😡</span><span>Fica irritado e agressivo quando você tenta tirar a tela.</span></div>
+        <div class="pain-item"><span class="ico">🙏</span><span>Está se afastando da família, dos amigos e de Deus.</span></div>
+        <div class="pain-item"><span class="ico">😔</span><span>Você sente que perdeu a autoridade como pai ou mãe.</span></div>
+        <div class="pain-item"><span class="ico">⚠️</span><span>O rendimento escolar caiu e o sono está prejudicado.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SOLUTION ══ -->
+  <section class="solution">
+    <div class="container">
+      <h2 class="sec-title" id="sol-title">A solução está mais perto do que você pensa<div class="divider"></div></h2>
+      <p class="sol-text" id="sol-text">
+        Este ebook vai te ensinar como <strong>recuperar o controle com princípios bíblicos</strong> e estratégias práticas comprovadas — sem brigas, sem desespero, restaurando a paz e a fé dentro da sua família.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ BENEFITS ══ -->
+  <section class="benefits">
+    <div class="container">
+      <h2 class="sec-title" id="ben-title">O que você vai conquistar<div class="divider"></div></h2>
+      <div class="ben-grid" id="ben-grid">
+        <div class="ben-card"><div class="icon">⚔️</div><h3 id="ben1-h">Sem Brigas</h3><p id="ben1-p">Reduza o tempo de tela com estratégias gentis e eficazes, sem conflitos diários.</p></div>
+        <div class="ben-card"><div class="icon">🌱</div><h3 id="ben2-h">Comportamento</h3><p id="ben2-p">Veja seu filho se tornar mais calmo, obediente e focado nas coisas que importam.</p></div>
+        <div class="ben-card"><div class="icon">✝️</div><h3 id="ben3-h">Fé Restaurada</h3><p id="ben3-p">Fortaleça o vínculo espiritual da família com princípios do evangelho.</p></div>
+        <div class="ben-card"><div class="icon">📅</div><h3 id="ben4-h">Disciplina</h3><p id="ben4-p">Crie rotinas saudáveis e limites que seu filho vai respeitar.</p></div>
+        <div class="ben-card"><div class="icon">🏡</div><h3 id="ben5-h">Paz em Casa</h3><p id="ben5-p">Recupere a alegria, harmonia e união que toda família cristã merece.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BANNER ══ -->
+  <section style="padding:0; background:var(--dark);">
+    <a href="https://go.hotmart.com/SEULINK" target="_blank" rel="noopener">
+      <img src="bannertela.png" alt="Banner" style="width:100%;display:block;max-height:420px;object-fit:cover;object-position:center;"/>
+    </a>
+  </section>
+
+  <!-- ══ AUTHORITY ══ -->
+  <section class="authority">
+    <div class="container">
+      <h2 class="sec-title" id="auth-title">Sobre o Autor<div class="divider"></div></h2>
+      <div class="auth-box">
+        <img src="foto do pastor.png" alt="Jean Sony Dupont" style="width:150px;height:150px;object-fit:cover;object-position:top;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(240,192,64,.4);margin-bottom:1rem;background:#111;"/>
+        <div class="auth-name">Jean Sony Dupont</div>
+        <div class="auth-desc" id="auth-desc">Autor cristão comprometido com a restauração familiar na era digital. Especialista em educação com valores bíblicos e comportamento infantil em ambientes tecnológicos.</div>
+        <div class="auth-stat" id="auth-stat">🏆 8 anos na Hotmart — Produtor Verificado</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GUARANTEE ══ -->
+  <section class="guarantee">
+    <div class="container">
+      <h2 class="sec-title" id="guar-title">Sua compra é 100% segura<div class="divider"></div></h2>
+      <div class="guar-box">
+        <div class="guar-icon">🛡️</div>
+        <div class="guar-text">
+          <h3 id="guar-h">GARANTIA DE 7 DIAS</h3>
+          <p id="guar-p">Se por qualquer motivo você não ficar satisfeito, devolvemos cada centavo em até 7 dias. Sem perguntas, sem burocracia. Risco zero para você.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="cta-final">
+    <div class="container">
+      <div class="cta-wrap">
+        <h2 class="sec-title" id="cta-title">Não espere o problema piorar<div class="divider"></div></h2>
+        <p class="sol-text" id="cta-sub" style="margin-bottom:1.5rem;font-size:1rem;">O excesso de telas está destruindo o desenvolvimento das crianças. Cada dia que passa é um dia perdido. Aja agora.</p>
+        <div class="hero-btns" style="width:100%">
+          <a class="btn-primary" id="btn-cta" href="https://pay.hotmart.com/H104275249C?bid=1779497999944" target="_blank" rel="noopener">
+            🔥 QUERO TRANSFORMAR MEU FILHO AGORA
+          </a>
+          <a class="btn-wpp" id="btn-cta-wpp" href="https://wa.me/5547996175406" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span id="btn-cta-wpp-text">TIRAR DÚVIDAS NO WHATSAPP</span>
+          </a>
+        </div>
+        <div class="alert-box">
+          <span class="aw">⚠️</span>
+          <span id="alert-text">Atenção: O excesso de telas está destruindo o desenvolvimento das crianças. Não espere o problema piorar para agir. O momento de mudar é AGORA.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer-text">
+    © 2025 Jean Sony Dupont · Todos os direitos reservados · Hotmart · WhatsApp: +55 47 99617-5406
+  </footer>
+
+</div><!-- /main-page -->
+
+<script>
+const copy = {
+  pt: {
+    badge: "NOVO",
+    heroLabel: "Guia Bíblico e Prático",
+    h1pre: "COMO RESOLVER",
+    h1suf: "DO SEU FILHO",
+    heroh1: "O VÍCIO EM TELAS",
+    heroSub: "Um guia bíblico e prático para restaurar o equilíbrio do seu filho na era digital.",
+    btnBuy: "📖 QUERO ACESSAR O EBOOK AGORA",
+    btnWpp: "FALAR NO WHATSAPP",
+    painTitle: "Você reconhece essa situação?",
+    painItems: [
+      ["📱","Seu filho não larga o celular — nem na hora das refeições."],
+      ["😡","Fica irritado e agressivo quando você tenta tirar a tela."],
+      ["🙏","Está se afastando da família, dos amigos e de Deus."],
+      ["😔","Você sente que perdeu a autoridade como pai ou mãe."],
+      ["⚠️","O rendimento escolar caiu e o sono está prejudicado."],
+    ],
+    solTitle: "A solução está mais perto do que você pensa",
+    solText: "Este ebook vai te ensinar como <strong>recuperar o controle com princípios bíblicos</strong> e estratégias práticas comprovadas — sem brigas, sem desespero, restaurando a paz e a fé dentro da sua família.",
+    benTitle: "O que você vai conquistar",
+    bens: [
+      ["⚔️","Sem Brigas","Reduza o tempo de tela com estratégias gentis e eficazes, sem conflitos diários."],
+      ["🌱","Comportamento","Veja seu filho se tornar mais calmo, obediente e focado nas coisas que importam."],
+      ["✝️","Fé Restaurada","Fortaleça o vínculo espiritual da família com princípios do evangelho."],
+      ["📅","Disciplina","Crie rotinas saudáveis e limites que seu filho vai respeitar."],
+      ["🏡","Paz em Casa","Recupere a alegria, harmonia e união que toda família cristã merece."],
+    ],
+    authTitle: "Sobre o Autor",
+    authDesc: "Autor cristão comprometido com a restauração familiar na era digital. Especialista em educação com valores bíblicos e comportamento infantil em ambientes tecnológicos.",
+    authStat: "🏆 8 anos na Hotmart — Produtor Verificado",
+    guarTitle: "Sua compra é 100% segura",
+    guarH: "GARANTIA DE 7 DIAS",
+    guarP: "Se por qualquer motivo você não ficar satisfeito, devolvemos cada centavo em até 7 dias. Sem perguntas, sem burocracia. Risco zero para você.",
+    ctaTitle: "Não espere o problema piorar",
+    ctaSub: "O excesso de telas está destruindo o desenvolvimento das crianças. Cada dia que passa é um dia perdido. Aja agora.",
+    btnCta: "🔥 QUERO TRANSFORMAR MEU FILHO AGORA",
+    btnCtaWpp: "TIRAR DÚVIDAS NO WHATSAPP",
+    alertText: "Atenção: O excesso de telas está destruindo o desenvolvimento das crianças. Não espere o problema piorar para agir. O momento de mudar é AGORA.",
+    footer: "© 2025 Jean Sony Dupont · Todos os direitos reservados · Hotmart · WhatsApp: +55 47 99617-5406",
+  },
+  en: {
+    badge: "NEW",
+    heroLabel: "Biblical & Practical Guide",
+    h1pre: "HOW TO SOLVE",
+    h1suf: "YOUR CHILD'S",
+    heroh1: "SCREEN ADDICTION",
+    heroSub: "A biblical and practical guide to restore your child's balance in the digital age.",
+    btnBuy: "📖 I WANT THE EBOOK NOW",
+    btnWpp: "CHAT ON WHATSAPP",
+    painTitle: "Do you recognize this situation?",
+    painItems: [
+      ["📱","Your child never puts the phone down — not even at mealtimes."],
+      ["😡","Gets angry and aggressive when you try to take the screen away."],
+      ["🙏","Is drifting away from family, friends and God."],
+      ["😔","You feel you've lost your authority as a parent."],
+      ["⚠️","School performance has dropped and sleep is suffering."],
+    ],
+    solTitle: "The solution is closer than you think",
+    solText: "This ebook will teach you how to <strong>regain control with biblical principles</strong> and proven practical strategies — without fights, without despair, restoring peace and faith inside your family.",
+    benTitle: "What you will achieve",
+    bens: [
+      ["⚔️","No More Fights","Reduce screen time with gentle, effective strategies and no daily conflicts."],
+      ["🌱","Better Behavior","Watch your child become calmer, more obedient and focused on what truly matters."],
+      ["✝️","Faith Restored","Strengthen your family's spiritual bond with gospel-centered principles."],
+      ["📅","Discipline","Build healthy routines and boundaries your child will respect."],
+      ["🏡","Peace at Home","Reclaim the joy, harmony and unity every Christian family deserves."],
+    ],
+    authTitle: "About the Author",
+    authDesc: "Christian author committed to family restoration in the digital age. Specialist in biblical-values education and child behavior in technological environments.",
+    authStat: "🏆 8 years on Hotmart — Verified Producer",
+    guarTitle: "Your purchase is 100% safe",
+    guarH: "7-DAY MONEY-BACK GUARANTEE",
+    guarP: "If for any reason you are not satisfied, we refund every cent within 7 days. No questions asked, no hassle. Zero risk for you.",
+    ctaTitle: "Don't wait for the problem to get worse",
+    ctaSub: "Excessive screen time is destroying children's development. Every day that passes is a lost day. Act now.",
+    btnCta: "🔥 I WANT TO TRANSFORM MY CHILD NOW",
+    btnCtaWpp: "ASK QUESTIONS ON WHATSAPP",
+    alertText: "Warning: Excessive screen time is destroying children's development. Don't wait for the problem to worsen before acting. The time to change is NOW.",
+    footer: "© 2025 Jean Sony Dupont · All rights reserved · Hotmart · WhatsApp: +55 47 99617-5406",
+  },
+  fr: {
+    badge: "NOUVEAU",
+    heroLabel: "Guide Biblique et Pratique",
+    h1pre: "COMMENT RÉSOUDRE",
+    h1suf: "DE VOTRE ENFANT",
+    heroh1: "L'ADDICTION AUX ÉCRANS",
+    heroSub: "Un guide biblique et pratique pour restaurer l'équilibre de votre enfant à l'ère numérique.",
+    btnBuy: "📖 JE VEUX L'EBOOK MAINTENANT",
+    btnWpp: "PARLER SUR WHATSAPP",
+    painTitle: "Vous reconnaissez cette situation ?",
+    painItems: [
+      ["📱","Votre enfant ne lâche jamais son téléphone — pas même à table."],
+      ["😡","Il devient irritable et agressif quand vous essayez de lui retirer l'écran."],
+      ["🙏","Il s'éloigne de la famille, des amis et de Dieu."],
+      ["😔","Vous avez l'impression d'avoir perdu votre autorité parentale."],
+      ["⚠️","Ses résultats scolaires ont chuté et son sommeil est perturbé."],
+    ],
+    solTitle: "La solution est plus proche que vous ne le pensez",
+    solText: "Ce guide vous apprendra à <strong>reprendre le contrôle grâce aux principes bibliques</strong> et à des stratégies pratiques éprouvées — sans disputes, sans désespoir, en restaurant la paix et la foi dans votre famille.",
+    benTitle: "Ce que vous allez accomplir",
+    bens: [
+      ["⚔️","Sans Disputes","Réduisez le temps d'écran avec des stratégies douces et efficaces, sans conflits."],
+      ["🌱","Comportement","Voyez votre enfant devenir plus calme, obéissant et concentré sur l'essentiel."],
+      ["✝️","Foi Restaurée","Renforcez le lien spirituel familial avec les principes de l'Évangile."],
+      ["📅","Discipline","Créez des routines saines et des limites que votre enfant respectera."],
+      ["🏡","Paix à la Maison","Retrouvez la joie, l'harmonie et l'unité que toute famille chrétienne mérite."],
+    ],
+    authTitle: "À propos de l'auteur",
+    authDesc: "Auteur chrétien engagé dans la restauration familiale à l'ère numérique. Spécialiste de l'éducation aux valeurs bibliques et du comportement des enfants dans les environnements technologiques.",
+    authStat: "🏆 8 ans sur Hotmart — Producteur Vérifié",
+    guarTitle: "Votre achat est 100 % sécurisé",
+    guarH: "GARANTIE 7 JOURS",
+    guarP: "Si pour quelque raison que ce soit vous n'êtes pas satisfait, nous remboursons chaque centime dans les 7 jours. Sans questions, sans complications. Zéro risque pour vous.",
+    ctaTitle: "N'attendez pas que le problème s'aggrave",
+    ctaSub: "L'excès d'écrans détruit le développement des enfants. Chaque jour qui passe est un jour perdu. Agissez maintenant.",
+    btnCta: "🔥 JE VEUX TRANSFORMER MON ENFANT MAINTENANT",
+    btnCtaWpp: "POSER DES QUESTIONS SUR WHATSAPP",
+    alertText: "Attention : L'excès d'écrans détruit le développement des enfants. N'attendez pas que le problème s'aggrave pour agir. Le moment de changer, c'est MAINTENANT.",
+    footer: "© 2025 Jean Sony Dupont · Tous droits réservés · Hotmart · WhatsApp: +55 47 99617-5406",
+  }
+};
+
+function setLang(lang) {
+  const c = copy[lang];
+  document.getElementById('lang-screen').style.display = 'none';
+  document.getElementById('main-page').style.display = 'block';
+  document.documentElement.lang = lang;
+
+  document.getElementById('badge-text').textContent = c.badge;
+  document.getElementById('hero-label').textContent = c.heroLabel;
+  document.getElementById('h1-pre').textContent = c.h1pre;
+  document.getElementById('h1-suf').textContent = c.h1suf;
+  document.querySelector('#hero-h1').childNodes[1].textContent = c.heroh1;
+  document.getElementById('hero-sub').textContent = c.heroSub;
+  document.getElementById('btn-buy').innerHTML = `${c.btnBuy}`;
+  document.getElementById('btn-wpp-text').textContent = c.btnWpp;
+
+  document.getElementById('pain-title').innerHTML = c.painTitle + '<div class="divider"></div>';
+  const pg = document.getElementById('pain-grid');
+  pg.innerHTML = c.painItems.map(([ico,txt]) =>
+    `<div class="pain-item"><span class="ico">${ico}</span><span>${txt}</span></div>`
+  ).join('');
+
+  document.getElementById('sol-title').innerHTML = c.solTitle + '<div class="divider"></div>';
+  document.getElementById('sol-text').innerHTML = c.solText;
+
+  document.getElementById('ben-title').innerHTML = c.benTitle + '<div class="divider"></div>';
+  const bg = document.getElementById('ben-grid');
+  bg.innerHTML = c.bens.map(([ico,h,p]) =>
+    `<div class="ben-card"><div class="icon">${ico}</div><h3>${h}</h3><p>${p}</p></div>`
+  ).join('');
+
+  document.getElementById('auth-title').innerHTML = c.authTitle + '<div class="divider"></div>';
+  document.getElementById('auth-desc').textContent = c.authDesc;
+  document.getElementById('auth-stat').textContent = c.authStat;
+
+  document.getElementById('guar-title').innerHTML = c.guarTitle + '<div class="divider"></div>';
+  document.getElementById('guar-h').textContent = c.guarH;
+  document.getElementById('guar-p').textContent = c.guarP;
+
+  document.getElementById('cta-title').innerHTML = c.ctaTitle + '<div class="divider"></div>';
+  document.getElementById('cta-sub').textContent = c.ctaSub;
+  document.getElementById('btn-cta').innerHTML = c.btnCta;
+  document.getElementById('btn-cta-wpp-text').textContent = c.btnCtaWpp;
+  document.getElementById('alert-text').textContent = c.alertText;
+  document.getElementById('footer-text').textContent = c.footer;
+}
+</script>
+</body>
+</html>
